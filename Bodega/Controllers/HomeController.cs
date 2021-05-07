@@ -13,9 +13,10 @@ namespace Bodega.Controllers
 {
     public class HomeController : Controller
     {
+        string baseUrl = "https://jsonplaceholder.typicode.com/";
+
         public async Task<ActionResult> Index()
         {
-            string baseUrl = "https://jsonplaceholder.typicode.com/";
             List<User> usuarios = new List<User>();
 
             using (var cliente = new HttpClient())
@@ -35,18 +36,32 @@ namespace Bodega.Controllers
 
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
 
+        public ActionResult Create()
+        {
             return View();
         }
 
-        public ActionResult Contact()
+        [HttpPost]
+        public async Task<ActionResult> Create(User user)
         {
-            ViewBag.Message = "Your contact page.";
+            using (var client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(baseUrl);
 
-            return View();
+                var json = JsonConvert.SerializeObject(user);
+                var stringContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                var respuesta =  await client.PostAsync("posts", stringContent);
+
+                if (respuesta.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Index");
+                }
+            }
+
+            ModelState.AddModelError(string.Empty, "Server Error. Please contact administrator.");
+
+            return View(user);
         }
     }
 }
