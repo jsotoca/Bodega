@@ -28,5 +28,7 @@ namespace Bodega
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Producto> Producto { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+
+        public System.Data.Entity.DbSet<Bodega.Models.User> Users { get; set; }
     }
 }
