@@ -159,6 +159,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ModeloBodega.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\User.cs" />
     <Compile Include="Producto.cs">
       <DependentUpon>ModeloBodega.tt</DependentUpon>
     </Compile>
@@ -233,7 +234,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
